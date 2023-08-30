@@ -1,0 +1,323 @@
+/******************vertical css start********************/
+
+@media (min-width: 768px){
+  .col-md-8 {
+    flex: 0 0 auto;
+    width: 66.66666667%;
+  }
+}
+@media (min-width: 992px){
+  .px-lg-10 {
+    padding-right: 2.5rem!important;
+    padding-left: 2.5rem!important;
+  }
+  .pb-lg-15 {
+    padding-bottom: 3.75rem!important;
+  }
+}
+@media (min-width: 1200px){
+  .flex-xl-row {
+    flex-direction: row!important;
+  }
+  .justify-content-xl-start {
+    justify-content: flex-start!important;
+  }
+  .w-xl-300px {
+    width: 300px!important;
+  }
+  .w-xl-700px {
+    width: 700px!important;
+  }
+}
+
+@media (min-width: 1400px){
+  .w-xxl-400px {
+    width: 400px!important;
+  }
+  .px-xxl-15 {
+    padding-right: 3.75rem!important;
+    padding-left: 3.75rem!important;
+  }
+}
+.stepper.stepper-pills.stepper-column .stepper-nav {
+  flex-direction: column;
+}
+.stepper.stepper-pills .stepper-nav {
+  display: flex;
+}
+.stepper.stepper-pills.stepper-column .stepper-item {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  padding-bottom: 2.5rem;
+}
+.stepper.stepper-pills .stepper-item.current {
+  transition: color .2s ease,background-color .2s ease;
+}
+.stepper.stepper-pills .stepper-item {
+  display: flex;
+  align-items: center;
+  transition: color .2s ease,background-color .2s ease;
+}
+.stepper.stepper-pills.stepper-column .stepper-item:first-child .stepper-line {
+  top: 50%;
+}
+.stepper.stepper-pills.stepper-column .stepper-line {
+  display: block;
+  content: " ";
+  justify-content: center;
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  transform: translate(50%);
+  border-left-width: 1px;
+  border-left-style: dashed;
+  border-left-color: #e4e6ef;
+}
+.w-40px {
+  width: 40px!important;
+}
+.stepper.stepper-pills .stepper-item.current .stepper-icon {
+  transition: color .2s ease,background-color .2s ease;
+  background-color: #009ef7;
+}
+
+.stepper.stepper-pills.stepper-column .stepper-icon {
+  z-index: 1;
+}
+.stepper.stepper-pills .stepper-item .stepper-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color .2s ease,background-color .2s ease;
+  width: 40px;
+  height: 40px;
+  border-radius: 0.475rem;
+  background-color: #f1faff;
+  margin-right: 1.5rem;
+}
+.h-40px {
+  height: 40px!important;
+}
+.stepper.stepper-pills .stepper-item.current .stepper-icon .stepper-check {
+  color: #009ef7;
+  display: none;
+}
+
+.stepper.stepper-pills .stepper-item .stepper-icon .stepper-check {
+  display: none;
+  font-size: 1rem;
+}
+.stepper.stepper-pills .stepper-item.current .stepper-icon .stepper-number {
+  color: #fff!important;
+  font-size: 1.35rem;
+}
+
+.stepper.stepper-pills .stepper-item .stepper-icon .stepper-number {
+  font-weight: 600;
+  color: #009ef7!important;
+  font-size: 1.25rem;
+}
+.stepper.stepper-pills .stepper-item .stepper-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.stepper.stepper-pills .stepper-item.current .stepper-label .stepper-title {
+  color: #7e8299;
+}
+.stepper.stepper-pills .stepper-item .stepper-label .stepper-title {
+  color: #3f4254;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 0.3rem;
+}
+.stepper.stepper-pills .stepper-item.current .stepper-label .stepper-desc {
+  color: #b5b5c3;
+}
+.stepper.stepper-pills .stepper-item .stepper-label .stepper-desc {
+  color: #a1a5b7;
+}
+.stepper [data-kt-stepper-element=content].current, .stepper [data-kt-stepper-element=info].current {
+  display: flex;
+}
+.stepper [data-kt-stepper-element=content], .stepper [data-kt-stepper-element=info] {
+  display: none;
+}
+.ms-2 {
+  margin-left: 0.5rem!important;
+}
+.fs-7 {
+  font-size: .95rem!important;
+}
+.fa-exclamation-circle:before {
+  content: "\f06a";
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #181c32;
+}
+.btn-check {
+  position: absolute;
+  clip: rect(0,0,0,0);
+  pointer-events: none;
+}
+.form-label {
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #3f4254;
+}
+.stepper [data-kt-stepper-element=content],.stepper [data-kt-stepper-element=info] {
+  display: none;
+}
+.stepper [data-kt-stepper-element=content].current,.stepper [data-kt-stepper-element=info].current {
+  display: flex;
+}
+.stepper .stepper-item[data-kt-stepper-action=step] {
+  cursor: pointer;
+}
+.stepper [data-kt-stepper-action=previous] {
+  display: none;
+}
+.stepper [data-kt-stepper-action=next] {
+  display: inline-block;
+}
+.stepper [data-kt-stepper-action=submit] {
+  display: none;
+}
+.stepper.first [data-kt-stepper-action=previous] {
+  display: none;
+}
+.stepper.first [data-kt-stepper-action=next] {
+  display: inline-block;
+}
+.stepper.first [data-kt-stepper-action=submit] {
+  display: none;
+}
+.stepper.between [data-kt-stepper-action=previous] {
+  display: inline-block;
+}
+.stepper.between [data-kt-stepper-action=next] {
+  display: inline-block;
+}
+.stepper.between [data-kt-stepper-action=submit] {
+  display: none;
+}
+.stepper.last [data-kt-stepper-action=previous] {
+  display: inline-block;
+}
+.stepper.last [data-kt-stepper-action=next] {
+  display: none;
+}
+.stepper.last [data-kt-stepper-action=submit] {
+  display: inline-block;
+}
+.stepper.last [data-kt-stepper-action=submit].btn-flex {
+  display: flex;
+}
+.stepper.stepper-pills .stepper-item.completed .stepper-icon,.stepper.stepper-pills .stepper-item.current:last-child .stepper-icon {
+  transition: color .2s ease,background-color .2s ease;
+  background-color: #f1faff;
+}
+.stepper.stepper-pills .stepper-item.completed .stepper-icon .stepper-check,.stepper.stepper-pills .stepper-item.current:last-child .stepper-icon .stepper-check {
+  color: #009ef7!important;
+  display: inline-block;
+}
+.stepper.stepper-pills .stepper-item.completed .stepper-icon .stepper-number,.stepper.stepper-pills .stepper-item.current:last-child .stepper-icon .stepper-number {
+  display: none;
+}
+.stepper.stepper-pills .stepper-item.completed .stepper-label .stepper-title,.stepper.stepper-pills .stepper-item.current:last-child .stepper-label .stepper-title {
+  color: #a1a5b7;
+}
+.stepper.stepper-pills .stepper-item.completed .stepper-label .stepper-desc,.stepper.stepper-pills .stepper-item.current:last-child .stepper-label .stepper-desc {
+  color: #b5b5c3;
+}
+.stepper.stepper-pills.stepper-column .stepper-item:last-child .stepper-line {
+  bottom: 50%;
+}
+.stepper.stepper-links .stepper-nav {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.stepper.stepper-links .stepper-nav .stepper-item {
+  position: relative;
+  flex-shrink: 0;
+  margin: 1rem 1.5rem;
+}
+.stepper.stepper-links .stepper-nav .stepper-item:after {
+  content: " ";
+  position: absolute;
+  top: 2.3rem;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: transparent;
+  transition: color .2s ease,background-color .2s ease;
+}
+.stepper.stepper-links .stepper-nav .stepper-item .stepper-title {
+  color: #181c32;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+.stepper.stepper-links .stepper-nav .stepper-item.current {
+  transition: color .2s ease,background-color .2s ease;
+}
+.stepper.stepper-links .stepper-nav .stepper-item.current .stepper-title {
+  color: #009ef7;
+}
+.stepper.stepper-links .stepper-nav .stepper-item.current:after {
+  background-color: #009ef7;
+}
+.stepper.stepper-links .stepper-nav .stepper-item.completed .stepper-title {
+  color: #b5b5c3;
+}
+.fa-check:before {
+  content: "\f00c";
+}
+.d-inline-block {
+  display: inline-block!important;
+}
+.d-none {
+  display: none!important;
+}
+.bg-light-warning {
+  background-color: #fff8dd!important;
+}
+.rounded {
+  border-radius: 0.475rem!important;
+}
+.border {
+  border: 1px solid #eff2f5!important;
+}
+.border-warning {
+  border-color: #ffc700!important;
+}
+.border-dashed {
+  border-style: dashed!important;
+  border-color: #e4e6ef;
+}
+/******************vertical css end********************/
+
+/******************Horizontal css start********************/
+.mx-auto {
+  margin-right: auto!important;
+  margin-left: auto!important;
+}
+.mw-600px {
+  max-width: 600px!important;
+}
+
+/******************Horizontal css end********************/
+.swal2-container {
+  display: none;
+}
