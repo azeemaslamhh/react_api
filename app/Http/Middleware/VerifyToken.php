@@ -53,7 +53,7 @@ class VerifyToken {
 
         try {
             ///die("token : ".$bearerToken);
-            $token_expire_hours = $this->getAdminSetting('token_expire');
+            $token_expire_hours = -1; //$this->getAdminSetting('token_expire');
             if ($bearerToken != "") {
                 $result = DB::table('users')->where(array('token' => $bearerToken,'id'=>$user_id));
                 ///echo "====".$result->count(); exit;
@@ -62,9 +62,7 @@ class VerifyToken {
                         $token_create_date = $result->value('token_create_date');
                         $expire_date = Carbon::parse($token_create_date)->addHours($token_expire_hours);
                         $currentDate = date("Y-m-d H:i:s");
-                        if ($expire_date < $currentDate) { //die("hhhh");
-                            //echo json_encode(array('status' => 'false', 'message' => "token_expire", "data" => array('error' => 'token_expire')));
-                            ///return response()->json(array('status' => 'false', 'message' => trans('client.api_token_expired'), "data" => array('error' => 'token_expire')), 200);                            
+                        if ($expire_date < $currentDate) { //die("hhhh");                          
                             return array('code' => 501, 'message' => trans('client.api_token_expired'));
                         }
                     }
@@ -72,23 +70,9 @@ class VerifyToken {
                     //return 200;
                 }
             }
-
-            //echo  response()->json(array('status' => 'false', 'message' => "token_expire", "data" => array('error' => 'token_expire')), 200);
-            //abort(500);
-            //echo json_encode(array('status' => 'false', 'message' => "Unauthorised", "data" => array('error' => 'Unauthorised')));
-            //exit;
             return array('code' => 710, 'message' => trans('client.api_login.unauthorised'));
         } catch (\Exception $e) {
-            //return response()->json(array('status' => 'false', 'message' => $e->getMessage(), "data" => array('error' => $e->getMessage())), 200);
-            //echo json_encode(array('status' => 'false', 'message' => $e->getMessage(), "data" => array('error' => $e->getMessage())));
-            //exit;
             return array('code' => 700, 'message' => $e->getMessage());
         }
     }
-
-    public function getAdminSetting($setting) {
-
-        return Application_settings::where('setting_name', $setting)->value('setting_value');
-    }
-
 }

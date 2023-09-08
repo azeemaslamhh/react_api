@@ -47,8 +47,9 @@ class RegisterController extends BaseController {
             $user['name'] = $user->name;
             $user['success'] = true;
             $user['login_status'] = 1;
+            $user['token'] = $token;
             $user['code'] = 200;
-            ///User::where('id', $user->id)->update(array('token' => $token, 'token_create_date' => date('Y-m-d H:i:s')));
+            User::where('id', $user->id)->update(array('token' => $token, 'token_create_date' => date('Y-m-d H:i:s')));
             
             return $this->loginSendResponse($user);
         } else {
@@ -56,6 +57,7 @@ class RegisterController extends BaseController {
         }
     }
 
+    
     public function createUser(Request $request) {
 
         $code = 200;

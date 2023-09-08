@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\RegisterController;
+use App\Http\Controllers\API\CustomFieldsController;
+use App\Http\Controllers\API\EmailController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,5 +24,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/clientLogoutActivity', [App\Http\Controllers\API\RegisterController::class, 'clientLogoutActivity'])->name('api.client.logout.activity');
 Route::controller(RegisterController::class)->group(function () {
     Route::post('register', 'createUser');
-    Route::post('login', 'login')->name("client.login");      
+    Route::post('login', 'login')->name("client.login");       
 });
+//// routes/api.php
+Route::middleware(['verify.token'])->group(function () {
+   Route::controller(EmailController::class)->group(function () {
+        Route::post('/sendEmail', 'sendEmail')->name('send.email');        
+    });   
+});
+
+
