@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\CustomFieldsController;
 use App\Http\Controllers\API\EmailController;
+use App\Http\Controllers\API\UserController;
 
 
 /*
@@ -30,6 +31,10 @@ Route::controller(RegisterController::class)->group(function () {
 Route::middleware(['verify.token'])->group(function () {
    Route::controller(EmailController::class)->group(function () {
         Route::post('/sendEmail', 'sendEmail')->name('send.email');        
+    });   
+    Route::controller(UserController::class)->group(function () {
+        Route::post('/updateUser', 'updateUser')->name('user.updateUser');        
+   
     });   
 });
 
