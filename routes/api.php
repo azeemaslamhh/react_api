@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\CustomFieldsController;
 use App\Http\Controllers\API\EmailController;
+use App\Http\Controllers\API\MenuListController;
 use App\Http\Controllers\API\UserController;
 
 
@@ -25,17 +26,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/clientLogoutActivity', [App\Http\Controllers\API\RegisterController::class, 'clientLogoutActivity'])->name('api.client.logout.activity');
 Route::controller(RegisterController::class)->group(function () {
     Route::post('register', 'createUser');
-    Route::post('login', 'login')->name("client.login");       
+    Route::post('login', 'login')->name("client.login");
 });
 //// routes/api.php
 Route::middleware(['verify.token'])->group(function () {
-   Route::controller(EmailController::class)->group(function () {
-        Route::post('/sendEmail', 'sendEmail')->name('send.email');        
-    });   
+    Route::controller(EmailController::class)->group(function () {
+        Route::post('/sendEmail', 'sendEmail')->name('send.email');
+    });
     Route::controller(UserController::class)->group(function () {
-        Route::post('/updateUser', 'updateUser')->name('user.updateUser');        
-   
-    });   
+        Route::post('/updateUser', 'updateUser')->name('user.updateUser');
+    });
 });
 
-
+Route::controller(MenuListController::class)->group(function () {
+    Route::get('/getMenu', 'getMenu')->name('get.Menu');
+});
