@@ -49,7 +49,7 @@ return new class extends Migration
 
         DB::table('orders')->insert([
             'id' => 2,
-            'user_id' => 2,
+            'user_id' => 1,
             'product_id' => 2,
             'quantity' => 2,
             'address' => '456 Elm St',
