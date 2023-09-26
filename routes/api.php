@@ -6,6 +6,7 @@ use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\CustomFieldsController;
 use App\Http\Controllers\API\EmailController;
 use App\Http\Controllers\API\MenuListController;
+use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\UserController;
 
 
@@ -41,3 +42,11 @@ Route::middleware(['verify.token'])->group(function () {
 Route::controller(MenuListController::class)->group(function () {
     Route::get('/getMenu', 'getMenu')->name('get.Menu');
 });
+
+Route::controller(ProductController::class)->group(function () {
+    Route::get('/getProducts', 'getProducts')->name('get.Products');
+    Route::get('/getProduct/{id}', 'getProduct')->name('get.Product');
+
+});
+
+
