@@ -46,7 +46,7 @@ class RegisterController extends BaseController
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
             $token = $user->createToken($request->email)->plainTextToken;
-            $salt = $user->createToken($request->email.'hijijijigy')->plainTextToken;
+            $salt = $user->createToken($request->email . 'hijijijigy')->plainTextToken;
 
             $user['user_id'] = $user->id;
             $user['name'] = $user->name;
@@ -55,8 +55,9 @@ class RegisterController extends BaseController
             $user['token'] = $token;
             $user['salt'] = $salt;
 
+
             $user['code'] = 200;
-            User::where('id', $user->id)->update(array('token' => $token,'salt' => $salt, 'token_create_date' => date('Y-m-d H:i:s')));
+            User::where('id', $user->id)->update(array('token' => $token, 'salt' => $salt, 'token_create_date' => date('Y-m-d H:i:s')));
 
             return $this->loginSendResponse($user);
         } else {
@@ -64,32 +65,42 @@ class RegisterController extends BaseController
         }
     }
 
+
+
     public function refreshToken(Request $request)
     {
-        $email = $request->input('email');
-        $mobile_no = $request->input('mobile_no');
-        $old_token = $request->input('token');
-        $user = User::where('email', $email)
-            ->where('mobile_no', $mobile_no)
-            ->first();
-   
-        if ($user) {
-           
-            $user_id = $user->id;
-            $tokenData = $email . $mobile_no . $user_id . $old_token;
-            $newToken = md5($tokenData);
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+            'email' => 'required|email',
+            'salt' => 'required',
+            'mobile_no' => 'required',
+            'old_token' => 'required'
+        ]);
 
-            $user->update(array('token' => $newToken, 'token_create_date' => date('Y-m-d H:i:s')));
-            return response()->json([
-                'success' => true,
-                'message' => 'Token refreshed successfully.',
-                'user' => $user,
-            ], 200);
-        } else {
-            return response()->json([
-                'error' => 'Invalid email and phone combination.',
-            ], 401);
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
         }
+
+        $oldToken = $request->old_token;
+        $systemKey = $request->salt;
+        $registerToken = md5($systemKey . $request->email . rspecial($request->mobile_no));
+
+        $result = Users::where(array(
+            'email' => $request->email,
+            'mobile_no' => $request->mobile_no,
+            'refresh_token_salt' => $registerToken,
+            'token' => $oldToken
+        ));
+
+        $newToken = '';
+        if ($result->count() > 0 && $this->systemKey == $systemKey) {
+            $newToken = md5($oldToken . $systemKey . $request->email . rspecial($request->mobile_no));
+            User::where('id', $request->user_id)->update(array('token' => $newToken, 'token_create_date' => date('Y-m-d H:i:s')));
+            $status = 'success';
+        } else {
+            $status = 'fail';
+        }
+        return response()->json(array('status' => $status, 'token' => $newToken), 200);
     }
 
 
