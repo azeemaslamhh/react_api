@@ -19,7 +19,8 @@ use App\Classes\CommonClass;
 use App\Models\Notification_module_templates;
 use App\Models\Notification_templates;
 
-class RegisterController extends BaseController {
+class RegisterController extends BaseController
+{
 
     /**
      * Register api
@@ -29,7 +30,8 @@ class RegisterController extends BaseController {
     private $systemKey = '';
     public $defaultApplicationSettings = array();
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->systemKey = config('app.SYSTEM_KEY');
         $this->defaultApplicationSettings = getAdminSettings();
     }
@@ -39,26 +41,61 @@ class RegisterController extends BaseController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
             $token = $user->createToken($request->email)->plainTextToken;
+            $salt = $user->createToken($request->email.'hijijijigy')->plainTextToken;
+
             $user['user_id'] = $user->id;
             $user['name'] = $user->name;
             $user['success'] = true;
             $user['login_status'] = 1;
-          $user['token'] = $token;
+            $user['token'] = $token;
+            $user['salt'] = $salt;
+
             $user['code'] = 200;
-            User::where('id', $user->id)->update(array('token' => $token, 'token_create_date' => date('Y-m-d H:i:s')));
-            
+            User::where('id', $user->id)->update(array('token' => $token,'salt' => $salt, 'token_create_date' => date('Y-m-d H:i:s')));
+
             return $this->loginSendResponse($user);
         } else {
             return $this->sendError('Unauthorised.', ['error' => trans("client.api_login.unauthorised")]);
         }
     }
 
-    
-    public function createUser(Request $request) {
+    public function refreshToken(Request $request)
+    {
+        $email = $request->input('email');
+        $mobile_no = $request->input('mobile_no');
+        $old_token = $request->input('token');
+        $user = User::where('email', $email)
+            ->where('mobile_no', $mobile_no)
+            ->first();
+   
+        if ($user) {
+           
+            $user_id = $user->id;
+            $tokenData = $email . $mobile_no . $user_id . $old_token;
+            $newToken = md5($tokenData);
+
+            $user->update(array('token' => $newToken, 'token_create_date' => date('Y-m-d H:i:s')));
+            return response()->json([
+                'success' => true,
+                'message' => 'Token refreshed successfully.',
+                'user' => $user,
+            ], 200);
+        } else {
+            return response()->json([
+                'error' => 'Invalid email and phone combination.',
+            ], 401);
+        }
+    }
+
+
+
+    public function createUser(Request $request)
+    {
 
         $code = 200;
         try {
@@ -113,7 +150,6 @@ class RegisterController extends BaseController {
                         $message = str_replace("%%first_name%%", $request->first_name, $message);
                         $objUsers->fill($clientData);
                         if ($objUsers->save()) {
-                            
                         } else {
                             $status = 'fail';
                             $message = trans('file.errors.msg');
@@ -126,10 +162,9 @@ class RegisterController extends BaseController {
             return response()->json($outputArray, 200);
         } catch (\Exception $e) {
             return response()->json([
-                        'status' => 'Exception',
-                        'message' => $e->getMessage(),
-                            ], 500);
+                'status' => 'Exception',
+                'message' => $e->getMessage(),
+            ], 500);
         }
     }
-
 }

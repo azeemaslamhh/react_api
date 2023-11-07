@@ -28,6 +28,8 @@ Route::post('/clientLogoutActivity', [App\Http\Controllers\API\RegisterControlle
 Route::controller(RegisterController::class)->group(function () {
     Route::post('register', 'createUser');
     Route::post('login', 'login')->name("client.login");
+    Route::post('refreshToken', 'refreshToken')->name("client.refreshToken");
+
 });
 //// routes/api.php
 Route::middleware(['verify.token'])->group(function () {
