@@ -84,16 +84,15 @@ class RegisterController extends BaseController
         $oldToken = $request->old_token;
         $systemKey = $request->salt;
         $registerToken = md5($systemKey . $request->email . rspecial($request->mobile_no));
-
+        
         $result = Users::where(array(
             'email' => $request->email,
             'mobile_no' => $request->mobile_no,
-            'refresh_token_salt' => $registerToken,
-            'token' => $oldToken
+            'salt' => $request->salt,
+            'token' =>$request->old_token
         ));
-
         $newToken = '';
-        if ($result->count() > 0 && $this->systemKey == $systemKey) {
+        if ($result->count() > 0) {
             $newToken = md5($oldToken . $systemKey . $request->email . rspecial($request->mobile_no));
             User::where('id', $request->user_id)->update(array('token' => $newToken, 'token_create_date' => date('Y-m-d H:i:s')));
             $status = 'success';
